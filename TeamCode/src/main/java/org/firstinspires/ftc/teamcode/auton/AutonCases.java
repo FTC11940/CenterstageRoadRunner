@@ -50,7 +50,7 @@ import java.util.List;
  * FTC WIRES Autonomous Example for only vision detection using tensorflow and park
  */
 @Autonomous(name = "Blue Left - Drive Forward", group = "Autonomous", preselectTeleOp = "TeleOpMode")
-public class BlueLeft extends LinearOpMode {
+public class AutonCases extends LinearOpMode {
 
     public static String TEAM_NAME = "Cyber Coyote"; // Enter team Name
     public static int TEAM_NUMBER = 11940; //Enter team Number

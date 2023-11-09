@@ -282,7 +282,7 @@ public class Example01 extends LinearOpMode {
         //******select start pose*****
         while(!isStopRequested()){
 
-            // TODO hard code the starting position
+            //TODO hard code the starting position
             startPosition = START_POSITION.BLUE_LEFT;
 
         }

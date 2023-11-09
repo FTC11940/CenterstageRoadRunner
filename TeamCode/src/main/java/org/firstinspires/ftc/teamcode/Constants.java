@@ -14,16 +14,7 @@ import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 
 public class Constants {
 
-    // multiplier for the driver motors
-    public static final double DRIVE_POWER = 1.0; // Adjust to driver comfort
-    // public static double SLOW_DOWN_FACTOR = 1.0; //
 
-    // Drivetrain information needed for accurate auton
-    public static final double COUNTS_PER_MOTOR_REV = 537.7 ; // GoBILDA 312 RPM Yellow Jacket
-    public static final double DRIVE_GEAR_REDUCTION = 1.0 ; // No External Gearing
-    public static final double WHEEL_DIAMETER_INCHES = 4.01575 ; // For figuring circumference
-    public static final double COUNTS_PER_INCH =
-            (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) / (WHEEL_DIAMETER_INCHES * 3.1415);
     /* Define how the hub is mounted on the robot to get the correct Yaw, Pitch and Roll values.
      *
      * Two input parameters are required to fully specify the Orientation.
@@ -37,10 +28,10 @@ public class Constants {
      *
      * To Do:  EDIT these two lines to match YOUR mounting configuration.
      */
-    RevHubOrientationOnRobot.LogoFacingDirection logoDirection = RevHubOrientationOnRobot.LogoFacingDirection.UP;
 
-    // Practice Bot is control up is turned right
-    RevHubOrientationOnRobot.UsbFacingDirection usbDirection = RevHubOrientationOnRobot.UsbFacingDirection.RIGHT;
+    // In the 'MecanumDrive'
+    // RevHubOrientationOnRobot.LogoFacingDirection logoDirection = RevHubOrientationOnRobot.LogoFacingDirection.UP;
+    // RevHubOrientationOnRobot.UsbFacingDirection usbDirection = RevHubOrientationOnRobot.UsbFacingDirection.RIGHT;
 
 
 }

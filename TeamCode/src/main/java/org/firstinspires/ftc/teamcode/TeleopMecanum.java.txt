@@ -9,8 +9,10 @@ package org.firstinspires.ftc.teamcode;
 
 import static org.firstinspires.ftc.teamcode.Constants.*;
 
+import com.acmerobotics.roadrunner.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 // added these for setting up IMU
@@ -39,9 +41,9 @@ import com.qualcomm.robotcore.hardware.IMU;
 
 public class TeleopMecanum extends LinearOpMode {
 
-    // TODO Create a 'RobotHardware' object (whatever we named it this season)
+    // Create a 'RobotHardware' object (whatever we named it this season)
     // Needed to access the robot hardware
-    RobotHardware robot = new RobotHardware(this);
+    MecanumDrive mecanum = new MecanumDrive();
   
     /** The IMU sensor object is needed for robot orientation correction if
      *     (a) the USB port is NOT facing "front" and parallel to the floor

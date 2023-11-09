@@ -8,12 +8,8 @@
 
 package org.firstinspires.ftc.teamcode;
 
-import static org.firstinspires.ftc.teamcode.Constants.DRIVE_POWER;
-
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.robotcore.util.Range;
 
 /*
  * This file works in conjunction with the External Hardware Class sample called: ConceptExternalHardwareClass.java
@@ -30,24 +26,23 @@ import com.qualcomm.robotcore.util.Range;
  *
  */
 
-public class RobotHardware {
+// Input-Output that's not drive motor or hub related. Previously referring to it as a hardware class
+public class IO {
 
     /* Declare OpMode members. */
     private LinearOpMode myOpMode = null;   // gain access to methods in the calling OpMode.
 
+    /**
     // Define the Motors (Make them private so they can't be accessed externally)
-
     // Defines the front right motor
     private DcMotor frontRightMotor = null;
-
     // Defines the front left motor
     private DcMotor frontLeftMotor = null;
-
     // Defines the back right motor
     private DcMotor backRightMotor = null;
-
     // Defines the back left motor
     private DcMotor backLeftMotor = null;
+     */
 
     // Defines the lift motor
     private DcMotor liftMotor = null;
@@ -60,7 +55,7 @@ public class RobotHardware {
 
 
     // Define a constructor that allows the OpMode to pass a reference to itself.
-    public RobotHardware (LinearOpMode opmode) {
+    public IO (LinearOpMode opmode) {
         myOpMode = opmode;
     }
 
@@ -75,6 +70,8 @@ public class RobotHardware {
         climbMotor  = myOpMode.hardwareMap.get(DcMotor.class, "climb_Motor");
         intakeMotor = myOpMode.hardwareMap.get(DcMotor.class, "intake_Motor");
         liftMotor   = myOpMode.hardwareMap.get(DcMotor.class, "lift_Motor");
+
+        /** In the 'MecanumDrive'
         backLeftMotor  = myOpMode.hardwareMap.get(DcMotor.class, "back_Left_Motor");
         backRightMotor = myOpMode.hardwareMap.get(DcMotor.class, "back_Right_Motor");
         frontLeftMotor   = myOpMode.hardwareMap.get(DcMotor.class, "front_Left_Motor");
@@ -100,20 +97,22 @@ public class RobotHardware {
         intakeMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         liftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
+         //set motors to use no power
+         backLeftMotor.setPower(0);
+         backRightMotor.setPower(0);
+         frontRightMotor.setPower(0);
+         frontLeftMotor.setPower(0);
+         climbMotor.setPower(0);
+         intakeMotor.setPower(0);
+         liftMotor.setPower(0);
+
+         */
         // Define and initialize ALL installed servos.
 //       leftHand = myOpMode.hardwareMap.get(Servo.class, "left_hand");
 //       rightHand = myOpMode.hardwareMap.get(Servo.class, "right_hand");
 //       leftHand.setPosition(MID_SERVO);
 //        rightHand.setPosition(MID_SERVO);
 
-        //set motors to use no power
-        backLeftMotor.setPower(0);
-        backRightMotor.setPower(0);
-        frontRightMotor.setPower(0);
-        frontLeftMotor.setPower(0);
-        climbMotor.setPower(0);
-        intakeMotor.setPower(0);
-        liftMotor.setPower(0);
 
         myOpMode.telemetry.addData("->", "Hardware Initialized");
         myOpMode.telemetry.update();
@@ -128,6 +127,7 @@ public class RobotHardware {
      * // @param Turn      Right/Left turning power (-1.0 to 1.0) +ve is CW
      */
 
+    /** Part of 'MecanimDrive
     public void mecanumDrive (double Y, double X, double Rot) {
         /*
          * Declare the power variables for each wheel
@@ -136,6 +136,8 @@ public class RobotHardware {
          * 'y' drive and 'rot' turn would only be needed for tank-style
          * 'mecanumDrive' will be called in the teleop file
          */
+
+        /*
         double frontLeftPower = (Y + X + Rot) * DRIVE_POWER;
         double backLeftPower = (Y - X + Rot) * DRIVE_POWER;
         double frontRightPower = (Y - X - Rot) * DRIVE_POWER;
@@ -153,7 +155,7 @@ public class RobotHardware {
              backRightPower /= maxPower;
              backLeftPower /= maxPower;
          }
-         */
+
 
         // Use the existing function to power the wheels
         setDrivePower(frontLeftPower, frontRightPower, backRightPower, backLeftPower);
@@ -166,6 +168,7 @@ public class RobotHardware {
         frontRightMotor.setPower((frontRightPower) * DRIVE_POWER);
         backRightMotor.setPower((backRightPower) * DRIVE_POWER);
     }
+*/
 
     /*
      * Pass the requested arm power to the appropriate hardware drive motor
@@ -196,7 +199,8 @@ public class RobotHardware {
     }
 
     */
-}
+
+} // end of class
 
 /* Copyright (c) 2022 FIRST. All rights reserved.
  *
