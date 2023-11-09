@@ -17,7 +17,7 @@ import org.firstinspires.ftc.teamcode.tuning.TuningOpModes;
 public class FTCWiresTeleOpMode extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
-        double SLOW_DOWN_FACTOR = 0.5; //TODO Adjust to driver comfort
+        // double SLOW_DOWN_FACTOR = 0.5; // Adjust to driver comfort
         telemetry.addData("Initializing FTC Wires (ftcwires.org) TeleOp adopted for Team:","TEAM NUMBER");
         telemetry.update();
 
@@ -30,10 +30,10 @@ public class FTCWiresTeleOpMode extends LinearOpMode {
                 telemetry.addData("Running FTC Wires (ftcwires.org) TeleOp Mode adopted for Team:","TEAM NUMBER");
                 drive.setDrivePowers(new PoseVelocity2d(
                         new Vector2d(
-                                -gamepad1.left_stick_y * SLOW_DOWN_FACTOR,
-                                -gamepad1.left_stick_x * SLOW_DOWN_FACTOR
+                                -gamepad1.left_stick_y * Constants.DRIVE_POWER,
+                                -gamepad1.left_stick_x * Constants.DRIVE_POWER
                         ),
-                        -gamepad1.right_stick_x * SLOW_DOWN_FACTOR
+                        -gamepad1.right_stick_x * Constants.DRIVE_POWER
                 ));
 
                 drive.updatePoseEstimate();
@@ -57,10 +57,10 @@ public class FTCWiresTeleOpMode extends LinearOpMode {
             while (opModeIsActive()) {
                 drive.setDrivePowers(new PoseVelocity2d(
                         new Vector2d(
-                                -gamepad1.left_stick_y * SLOW_DOWN_FACTOR,
+                                -gamepad1.left_stick_y * Constants.DRIVE_POWER,
                                 0.0
                         ),
-                        -gamepad1.right_stick_x * SLOW_DOWN_FACTOR
+                        -gamepad1.right_stick_x * Constants.DRIVE_POWER
                 ));
 
                 drive.updatePoseEstimate();

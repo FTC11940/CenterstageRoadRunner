@@ -27,7 +27,7 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.auton;
 
 import static com.qualcomm.robotcore.util.ElapsedTime.Resolution.SECONDS;
 
@@ -40,6 +40,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.BuiltinCameraDirection;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
+import org.firstinspires.ftc.teamcode.MecanumDrive;
 import org.firstinspires.ftc.vision.VisionPortal;
 import org.firstinspires.ftc.vision.tfod.TfodProcessor;
 
@@ -48,8 +49,8 @@ import java.util.List;
 /**
  * FTC WIRES Autonomous Example for only vision detection using tensorflow and park
  */
-@Autonomous(name = "FTC Wires Autonomous Mode", group = "00-Autonomous", preselectTeleOp = "FTC Wires TeleOp")
-public class FTCWiresAutonomous extends LinearOpMode {
+@Autonomous(name = "Blue Left - Drive Forward", group = "Autonomous", preselectTeleOp = "TeleOpMode")
+public class BlueLeft extends LinearOpMode {
 
     public static String TEAM_NAME = "Cyber Coyote"; // Enter team Name
     public static int TEAM_NUMBER = 11940; //Enter team Number
@@ -81,7 +82,7 @@ public class FTCWiresAutonomous extends LinearOpMode {
 
         //Key Pay inputs to selecting Starting Position of robot
         selectStartingPosition();
-        telemetry.addData("Selected Starting Position", startPosition);
+        telemetry.addData("Starting Position is", startPosition);
 
         //Activate Camera Vision that uses TensorFlow for pixel detection
         initTfod();
@@ -280,31 +281,10 @@ public class FTCWiresAutonomous extends LinearOpMode {
         telemetry.clearAll();
         //******select start pose*****
         while(!isStopRequested()){
-            telemetry.addData("Initializing FTC Wires (ftcwires.org) Autonomous adopted for Team:",
-                    TEAM_NAME, " ", TEAM_NUMBER);
-            telemetry.addData("---------------------------------------","");
-            telemetry.addData("Select Starting Position using XYAB on Logitech (or ▢ΔOX on Playstayion) on gamepad 1:","");
-            telemetry.addData("    Blue Left   ", "(X / ▢)");
-            telemetry.addData("    Blue Right ", "(Y / Δ)");
-            telemetry.addData("    Red Left    ", "(B / O)");
-            telemetry.addData("    Red Right  ", "(A / X)");
-            if(gamepad1.x){
-                startPosition = START_POSITION.BLUE_LEFT;
-                break;
-            }
-            if(gamepad1.y){
-                startPosition = START_POSITION.BLUE_RIGHT;
-                break;
-            }
-            if(gamepad1.b){
-                startPosition = START_POSITION.RED_LEFT;
-                break;
-            }
-            if(gamepad1.a){
-                startPosition = START_POSITION.RED_RIGHT;
-                break;
-            }
-            telemetry.update();
+
+            // TODO hard code the starting position
+            startPosition = START_POSITION.BLUE_LEFT;
+
         }
         telemetry.clearAll();
     }
