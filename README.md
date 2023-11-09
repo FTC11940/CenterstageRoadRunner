@@ -1,4 +1,7 @@
-# FTC WIRES Autonomous based on Road Runner 1.8
+# FTC 11940
+Base code for 2024 Season CENTERSTAGE
+
+### FTC WIRES Autonomous based on Road Runner 1.8
 For instructions and documentation, please register at https://forms.gle/mBFYMgsE5pH3QBXa9
 For details, check out http://www.ftcwires.org/softwareplatform
 
