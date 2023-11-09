@@ -1,0 +1,105 @@
+/**
+ * TODO
+ * Team:
+ * Year:
+ * Title:
+ * Summary:
+ **/
+package org.firstinspires.ftc.teamcode;
+
+import static org.firstinspires.ftc.teamcode.Constants.*;
+
+import com.acmerobotics.roadrunner.Pose2d;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.util.ElapsedTime;
+
+// added these for setting up IMU
+import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
+import com.qualcomm.robotcore.hardware.IMU;
+
+
+@TeleOp(name = "Sisyphus v5.10", group="Linear OpMode")
+/****************************
+ runOpMode():
+ Code inside this method will run exactly once after you press the INIT button.
+ This is where you should put all code for the OpMode.
+ waitForStart():
+ This method pauses the Op-Mode until you press the START button on the driver station.
+ isStarted():
+ returns true if the START button has been pressed, otherwise it returns false.
+ isStopRequested():
+ returns true if the STOP button has been pressed, otherwise it returns false.
+ idle():
+ calls Thread.yield, allowing other threads at the same priority level to run.
+ opModeIsActive():
+ returns isStarted() && !isStopRequested() and calls idle().
+ opModeInInit():
+ returns !isStarted() && !isStopRequested() and does not call idle().
+ *****************************/
+
+public class TeleopMecanum extends LinearOpMode {
+
+    // Create a 'RobotHardware' object (whatever we named it this season)
+    // Needed to access the robot hardware
+    MecanumDrive mecanum = new MecanumDrive();
+  
+    /** The IMU sensor object is needed for robot orientation correction if
+     *     (a) the USB port is NOT facing "front" and parallel to the floor
+     *     (b) auton needs to use gyro based turns
+     *     https://ftc-docs.firstinspires.org/en/latest/programming_resources/imu/imu.html
+     */
+
+    private ElapsedTime runtime = new ElapsedTime();
+
+    @Override
+    public void runOpMode() {
+
+        // Set to zero so robot doesn't inadvertently take off
+        double driveY = 0;
+        double driveX = 0;
+        double driveRotate = 0;
+
+        // TODO Reference the 'RobotHardware' init() method
+        robot.init();
+
+        telemetry.update();
+
+        telemetry.addData("Status", "Initialized");
+
+        // Retrieve and initialize the IMU.
+        // This sample expects the IMU to be in a REV Hub and named "imu".
+        // TODO Add in reference to IMU
+        // imu = hardwareMap.get(IMU.class, "imu");
+
+
+        waitForStart();
+
+
+        while (opModeIsActive()) {
+
+            // TODO 2023 controller setup
+            // No need to assign the variable type; previously done in 'runOpMode'
+            // Driver inputs to a variable that gets passed
+            driveY = -gamepad1.left_stick_y; // Uses the left thumbstick for left and right robot movement
+            driveX = gamepad1.left_stick_x; //*1.1 to counteract imperfect strafing
+            driveRotate = gamepad1.right_stick_x; // Uses the right thumbstick to rotate robot movement
+
+            // The RobotHardware 'robot.' and drive-combo method 'mecanumDrive'
+            // including the variables for the input '(y, x, rot)'
+
+            idle();
+
+            // telemetry.addData("Hub orientation", "Logo=%s   USB=%s\n ", logoDirection, usbDirection);
+
+            telemetry.addData("Status", "Run Time: " + runtime.toString());
+           // telemetry.addData("Motors", "Front L (%.2f), Front R (%.2f)", frontLeftPower, frontRightPower);
+
+            telemetry.update();
+
+        } // end of OpModeIsActiver
+
+    } // end of runOpMode
+
+} // end of class

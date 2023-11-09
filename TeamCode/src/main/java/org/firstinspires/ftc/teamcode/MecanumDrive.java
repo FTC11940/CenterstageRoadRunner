@@ -49,6 +49,14 @@ import java.util.List;
 public final class MecanumDrive {
     public static class Params {
         // drive model parameters
+
+        // Drivetrain information needed for accurate auton
+        public static final double COUNTS_PER_MOTOR_REV = 537.7 ; // GoBILDA 312 RPM Yellow Jacket
+        public static final double DRIVE_GEAR_REDUCTION = 1.0 ; // No External Gearing
+        public static final double WHEEL_DIAMETER_INCHES = 4.01575 ; // For figuring circumference
+        public static final double COUNTS_PER_INCH =
+                (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) / (WHEEL_DIAMETER_INCHES * 3.1415);
+
         //TODO Step 5 Set value of inPerTick after running ForwardPushTest
         //TODO Step 14 Make value of inPerTick accurate after running LocalizationTest
         public double inPerTick = 0.03515178571; // Theory, still need to do the empirical
@@ -108,6 +116,10 @@ public final class MecanumDrive {
     public final AccelConstraint defaultAccelConstraint =
             new ProfileAccelConstraint(PARAMS.minProfileAccel, PARAMS.maxProfileAccel);
 
+    /**
+     * TODO Declare the remaining hardware
+     *
+     * */
     public final DcMotorEx leftFront, leftBack, rightBack, rightFront;
 
     public final VoltageSensor voltageSensor;
@@ -210,8 +222,8 @@ public final class MecanumDrive {
         //Uncomment the lines for which the motorDirection need to be reversed to ensure all motors run forward in test
         leftFront.setDirection(DcMotorEx.Direction.REVERSE);
         leftBack.setDirection(DcMotorEx.Direction.REVERSE);
-        // rightFront.setDirection(DcMotorEx.Direction.REVERSE);
-        // rightBack.setDirection(DcMotorEx.Direction.REVERSE);
+        rightFront.setDirection(DcMotorEx.Direction.FORWARD);
+        rightBack.setDirection(DcMotorEx.Direction.FORWARD);
         //TODO Make the same update in DriveLocalizer() function. Search for Step 4.2
         // End Step 4.1
 

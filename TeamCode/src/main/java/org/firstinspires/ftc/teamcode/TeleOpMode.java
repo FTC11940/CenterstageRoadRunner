@@ -13,12 +13,15 @@ import org.firstinspires.ftc.teamcode.tuning.TuningOpModes;
  *
  */
 
-@TeleOp(name = "FTC Wires TeleOp", group = "00-Teleop")
-public class FTCWiresTeleOpMode extends LinearOpMode {
+@TeleOp(name = "Cyber Coyotes TeleOp", group = "Teleop")
+public class TeleOpMode extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
-        double SLOW_DOWN_FACTOR = 0.5; //TODO Adjust to driver comfort
-        telemetry.addData("Initializing FTC Wires (ftcwires.org) TeleOp adopted for Team:","TEAM NUMBER");
+        // multiplier for the driver motors
+        double DRIVE_POWER = 1.0; // Adjust to driver comfort
+
+        telemetry.addData("Initializing FTC Wires (ftcwires.org) TeleOp adopted for Team:","11940");
+
         telemetry.update();
 
         if (TuningOpModes.DRIVE_CLASS.equals(MecanumDrive.class)) {
@@ -27,13 +30,13 @@ public class FTCWiresTeleOpMode extends LinearOpMode {
             waitForStart();
 
             while (opModeIsActive()) {
-                telemetry.addData("Running FTC Wires (ftcwires.org) TeleOp Mode adopted for Team:","TEAM NUMBER");
+                telemetry.addData("Running FTC Wires (ftcwires.org) TeleOp Mode adopted for Team:","11940");
                 drive.setDrivePowers(new PoseVelocity2d(
                         new Vector2d(
-                                -gamepad1.left_stick_y * SLOW_DOWN_FACTOR,
-                                -gamepad1.left_stick_x * SLOW_DOWN_FACTOR
+                                -gamepad1.left_stick_y * DRIVE_POWER,
+                                -gamepad1.left_stick_x * DRIVE_POWER
                         ),
-                        -gamepad1.right_stick_x * SLOW_DOWN_FACTOR
+                        -gamepad1.right_stick_x * DRIVE_POWER
                 ));
 
                 drive.updatePoseEstimate();
@@ -57,10 +60,10 @@ public class FTCWiresTeleOpMode extends LinearOpMode {
             while (opModeIsActive()) {
                 drive.setDrivePowers(new PoseVelocity2d(
                         new Vector2d(
-                                -gamepad1.left_stick_y * SLOW_DOWN_FACTOR,
+                                -gamepad1.left_stick_y * DRIVE_POWER,
                                 0.0
                         ),
-                        -gamepad1.right_stick_x * SLOW_DOWN_FACTOR
+                        -gamepad1.right_stick_x * DRIVE_POWER
                 ));
 
                 drive.updatePoseEstimate();
