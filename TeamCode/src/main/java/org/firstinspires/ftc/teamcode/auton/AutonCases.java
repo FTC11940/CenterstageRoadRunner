@@ -49,7 +49,9 @@ import java.util.List;
 /**
  * FTC WIRES Autonomous Example for only vision detection using tensorflow and park
  */
-@Autonomous(name = "Blue Left - Drive Forward", group = "Autonomous", preselectTeleOp = "TeleOpMode")
+@Autonomous(name = "Blue Left - Drive Forward", group = "Autonomous")
+
+// @Autonomous(name = "Blue Left - Drive Forward", group = "Autonomous", preselectTeleOp = "TeleOpMode")
 public class AutonCases extends LinearOpMode {
 
     public static String TEAM_NAME = "Cyber Coyote"; // Enter team Name
