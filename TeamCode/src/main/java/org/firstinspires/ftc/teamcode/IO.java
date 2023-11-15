@@ -10,6 +10,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.Servo;
 
 /*
@@ -47,13 +48,16 @@ public class IO {
      */
 
     // Defines the lift motor
-    private DcMotor liftMotor = null;
+    public DcMotor liftMotor = null;
 
     // Defines the intake motor
-    private DcMotor intakeMotor = null;
+    public static DcMotor intake = null;
 
-    // Defines the motor for climbing
-    private DcMotor climbMotor = null;
+    // Defines the motors for climbing
+    public DcMotor leftSlide = null;
+    public DcMotor rightSlide = null;
+
+    public DcMotor armRot = null;
 
     // TODO put in the configure setup
 
@@ -74,22 +78,23 @@ public class IO {
     boolean rampUp = true;
 
     // Servo to rotate the cup/pocket/bucket over and back
-    public Servo cupRot;
+    public Servo leftCupRotation;
+    public Servo rightCupRotation;
 
     // Servo with a tab to open/close the opening of the cup
     private Servo cupTab;
 
 
     // TODO
-    public enum DEPLOY_POSITION{
-        INTAKE_POSITION, // resting or home
-        DEPLOY_LOW, // deploy to lowest
-        DEPLOY_MID, // deploy to mid height
-        DEPLOY_HIGH, // deploy to highest
+    public enum SCORE_POSITION{
+        INTAKE_POS, // resting or home
+        SCORE_LOW, // deploy to lowest
+        SCORE_MID, // deploy to mid height
+        SCORE_HIGH, // deploy to highest
         CLIMB, // climbing, break off into another method
     }
 
-    public static DEPLOY_POSITION deployPosition;
+    public static SCORE_POSITION scorePosition;
 
     // Define a constructor that allows the OpMode to pass a reference to itself.
     public IO (LinearOpMode opmode) {
@@ -104,18 +109,33 @@ public class IO {
     public void init()    {
 
         // Define and Initialize Motors (note: need to use reference to actual OpMode).
-        climbMotor  = myOpMode.hardwareMap.get(DcMotor.class, "climb_motor");
-        intakeMotor = myOpMode.hardwareMap.get(DcMotor.class, "intake_motor");
-        liftMotor   = myOpMode.hardwareMap.get(DcMotor.class, "lift_motor");
+        leftSlide  = myOpMode.hardwareMap.get(DcMotor.class, "leftSlide");
+        rightSlide  = myOpMode.hardwareMap.get(DcMotor.class, "rightSlide");
+        intake = myOpMode.hardwareMap.get(DcMotor.class, "intake");
+        armRot   = myOpMode.hardwareMap.get(DcMotor.class, "armRot");
 
-        climbMotor.setDirection(DcMotor.Direction.FORWARD);
-        intakeMotor.setDirection(DcMotor.Direction.FORWARD);
-        liftMotor.setDirection(DcMotor.Direction.FORWARD);
+        leftSlide.setDirection(DcMotor.Direction.REVERSE);
+        rightSlide.setDirection(DcMotor.Direction.FORWARD);
+        intake.setDirection(DcMotor.Direction.FORWARD);
+        armRot.setDirection(DcMotor.Direction.FORWARD);
 
         // Connect to servo (Assume Robot Left Hand)
         // Change the text in quotes to match any servo name on your robot.
-        cupRot = myOpMode.hardwareMap.get(Servo.class, "cup_rot");
-        cupTab = myOpMode.hardwareMap.get(Servo.class, "cup_tab");
+        leftCupRotation = myOpMode.hardwareMap.get(Servo.class, "leftCupRot");
+        rightCupRotation = myOpMode.hardwareMap.get(Servo.class, "rightCupRot");
+        cupTab = myOpMode.hardwareMap.get(Servo.class, "cupTab");
+
+        // If there are encoders connected, switch to RUN_USING_ENCODER mode for greater accuracy
+        leftSlide.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightSlide.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        // intake.setMode(DcMotor.RunMode.RUN_USING_ENCODER); // doesn't need an encoder!
+        armRot.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        //set motors to use no power
+        leftSlide.setPower(0);
+        rightSlide.setPower(0);
+        intake.setPower(0);
+        armRot.setPower(0);
 
         /** In the 'MecanumDrive'
         backLeftMotor  = myOpMode.hardwareMap.get(DcMotor.class, "back_Left_Motor");
@@ -190,20 +210,6 @@ public class IO {
 
     // TODO Pushes slide to one of three positions
     public void setDeployment(){
-        switch (deployPosition) {
-            case INTAKE_POSITION:
-                // cup ready for intake
-                // tab open
-                // slides at home position
-            case DEPLOY_LOW:
-                //
-            case DEPLOY_MID:
-                //
-            case DEPLOY_HIGH:
-                //
-            case CLIMB:
-                // extends the slide, puts the drivetrain in coast instead of brake
-        }
 
     }
 

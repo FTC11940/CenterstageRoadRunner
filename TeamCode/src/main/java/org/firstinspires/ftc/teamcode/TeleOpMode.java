@@ -6,6 +6,7 @@ import com.acmerobotics.roadrunner.Vector2d;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+
 import org.firstinspires.ftc.teamcode.tuning.TuningOpModes;
 
 /**
@@ -26,6 +27,7 @@ public class TeleOpMode extends LinearOpMode {
 
         if (TuningOpModes.DRIVE_CLASS.equals(MecanumDrive.class)) {
             MecanumDrive drive = new MecanumDrive(hardwareMap, new Pose2d(0, 0, 0));
+            // IO IO = new IO();
 
             waitForStart();
 
@@ -38,6 +40,17 @@ public class TeleOpMode extends LinearOpMode {
                         ),
                         -gamepad1.right_stick_x * DRIVE_POWER
                 ));
+
+                // TODO assign buttons
+                if(gamepad1.a) {
+                    // turn on intake in forward direction
+                    IO.intake.setPower(0.25);
+                    break;
+                }
+
+                if(gamepad1.b) {
+                    // reverse
+                }
 
                 drive.updatePoseEstimate();
 
@@ -72,6 +85,7 @@ public class TeleOpMode extends LinearOpMode {
                 telemetry.addData("y", drive.pose.position.y);
                 telemetry.addData("heading", drive.pose.heading);
                 telemetry.update();
+
             }
         } else {
             throw new AssertionError();
