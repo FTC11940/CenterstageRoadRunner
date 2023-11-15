@@ -10,6 +10,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Servo;
 
 /*
  * This file works in conjunction with the External Hardware Class sample called: ConceptExternalHardwareClass.java
@@ -26,7 +27,8 @@ import com.qualcomm.robotcore.hardware.DcMotor;
  *
  */
 
-// Input-Output that's not drive motor or hub related. Previously referring to it as a hardware class
+// Input-Output that's not drive motor or hub related.
+// Previously referring to it as a hardware class
 public class IO {
 
     /* Declare OpMode members. */
@@ -53,6 +55,41 @@ public class IO {
     // Defines the motor for climbing
     private DcMotor climbMotor = null;
 
+    // TODO put in the configure setup
+
+    // Variables for the servos
+    static final double CUP_INCREMENT   = 0.01;     // amount to slew servo each CYCLE_MS cycle
+    static final int    CUP_CYCLE_MS    =   50;     // period of each cycle
+    static final double CUP_MAX_POS     =  1.0;     // Maximum rotational position
+    static final double CUP_MIN_POS     =  0.0;     // Minimum rotational position
+
+    static final double CUP_DEPLOY_POS     =  1.0;     // TODO check position for pixel deployment
+    static final double CUP_INTAKE_POS     =  0.0;     // TODO check position for pixel intake
+
+    static final double TAB_OPEN = 1.0; // TODO check position
+    static final double TAB_CLOSE = 0.0; // TODO check position
+
+    // Define class members
+    double  cupPos = (CUP_MAX_POS - CUP_MIN_POS) / 2; // Start at halfway position
+    boolean rampUp = true;
+
+    // Servo to rotate the cup/pocket/bucket over and back
+    public Servo cupRot;
+
+    // Servo with a tab to open/close the opening of the cup
+    private Servo cupTab;
+
+
+    // TODO
+    public enum DEPLOY_POSITION{
+        INTAKE_POSITION, // resting or home
+        DEPLOY_LOW, // deploy to lowest
+        DEPLOY_MID, // deploy to mid height
+        DEPLOY_HIGH, // deploy to highest
+        CLIMB, // climbing, break off into another method
+    }
+
+    public static DEPLOY_POSITION deployPosition;
 
     // Define a constructor that allows the OpMode to pass a reference to itself.
     public IO (LinearOpMode opmode) {
@@ -67,9 +104,18 @@ public class IO {
     public void init()    {
 
         // Define and Initialize Motors (note: need to use reference to actual OpMode).
-        climbMotor  = myOpMode.hardwareMap.get(DcMotor.class, "climb_Motor");
-        intakeMotor = myOpMode.hardwareMap.get(DcMotor.class, "intake_Motor");
-        liftMotor   = myOpMode.hardwareMap.get(DcMotor.class, "lift_Motor");
+        climbMotor  = myOpMode.hardwareMap.get(DcMotor.class, "climb_motor");
+        intakeMotor = myOpMode.hardwareMap.get(DcMotor.class, "intake_motor");
+        liftMotor   = myOpMode.hardwareMap.get(DcMotor.class, "lift_motor");
+
+        climbMotor.setDirection(DcMotor.Direction.FORWARD);
+        intakeMotor.setDirection(DcMotor.Direction.FORWARD);
+        liftMotor.setDirection(DcMotor.Direction.FORWARD);
+
+        // Connect to servo (Assume Robot Left Hand)
+        // Change the text in quotes to match any servo name on your robot.
+        cupRot = myOpMode.hardwareMap.get(Servo.class, "cup_rot");
+        cupTab = myOpMode.hardwareMap.get(Servo.class, "cup_tab");
 
         /** In the 'MecanumDrive'
         backLeftMotor  = myOpMode.hardwareMap.get(DcMotor.class, "back_Left_Motor");
@@ -118,6 +164,50 @@ public class IO {
         myOpMode.telemetry.update();
     }
 
+    // TODO
+    // Separate classes is probably overkill
+    // Consider using a variable that changes for deployment and intake positions
+    public void setTabOpen() {
+
+    }
+
+    // TODO
+    public void setTabClose() {
+
+    }
+
+    // TODO sets the cup for deployment
+    // Separate classes is probably overkill
+    // Consider using a variable that changes for deployment and intake positions
+    public void setCupDeploy() {
+
+    }
+
+    // TODO Sets the cup for intake position
+    public void setCupIntake() {
+
+    }
+
+    // TODO Pushes slide to one of three positions
+    public void setDeployment(){
+        switch (deployPosition) {
+            case INTAKE_POSITION:
+                // cup ready for intake
+                // tab open
+                // slides at home position
+            case DEPLOY_LOW:
+                //
+            case DEPLOY_MID:
+                //
+            case DEPLOY_HIGH:
+                //
+            case CLIMB:
+                // extends the slide, puts the drivetrain in coast instead of brake
+        }
+
+    }
+
+    // TODO
     /**
      * Calculates the left/right motor powers required to achieve the requested
      * robot motions: Drive (Axial motion) and Turn (Yaw motion).
