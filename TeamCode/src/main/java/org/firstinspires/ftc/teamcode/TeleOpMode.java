@@ -16,6 +16,10 @@ import org.firstinspires.ftc.teamcode.tuning.TuningOpModes;
 
 @TeleOp(name = "Cyber Coyotes TeleOp", group = "Teleop")
 public class TeleOpMode extends LinearOpMode {
+
+    // TODO test
+    IO io = new IO(this);
+
     @Override
     public void runOpMode() throws InterruptedException {
         // multiplier for the driver motors
@@ -27,7 +31,6 @@ public class TeleOpMode extends LinearOpMode {
 
         if (TuningOpModes.DRIVE_CLASS.equals(MecanumDrive.class)) {
             MecanumDrive drive = new MecanumDrive(hardwareMap, new Pose2d(0, 0, 0));
-            // IO IO = new IO();
 
             waitForStart();
 
