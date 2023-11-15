@@ -68,8 +68,8 @@ public final class MecanumDrive {
 
         //TODO Step 10 (Only for DriveEncoder Localizer) Set value of trackWidthTicks after running AngularRampLogger
         //TODO Step 11 (Only for DeadWheel Localizer) Set value of trackWidthTicks after running AngularRampLogger
-        public double trackWidthTicks = 1374.0380561372838; // angular ramp logger
-        // 1374.0380561372838
+        //      Go to Step 11.1 in Three or Two DeadWheelLocalizer and updated  values of par0YTicks, part1YTicks, perpXTicks
+        public double trackWidthTicks = 0;
 
         // feedforward parameters (in tick units)
         //TODO Step 7 (Only for DeadWheel Localizer) Set value for kS and KV after running ForwardRampLogger
@@ -116,15 +116,13 @@ public final class MecanumDrive {
     public final AccelConstraint defaultAccelConstraint =
             new ProfileAccelConstraint(PARAMS.minProfileAccel, PARAMS.maxProfileAccel);
 
-    /**
-     * TODO Declare the remaining hardware
-     *
-     * */
     public final DcMotorEx leftFront, leftBack, rightBack, rightFront;
 
     public final VoltageSensor voltageSensor;
 
     public final IMU imu;
+
+    // TODO Declare remaining hardware
 
     public final Localizer localizer;
     public Pose2d pose;
