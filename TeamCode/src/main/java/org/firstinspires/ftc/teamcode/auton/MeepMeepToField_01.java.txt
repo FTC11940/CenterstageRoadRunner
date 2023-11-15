@@ -1,0 +1,125 @@
+package org.firstinspires.ftc.teamcode.auton;
+
+import static com.qualcomm.robotcore.util.ElapsedTime.Resolution.SECONDS;
+
+import com.acmerobotics.roadrunner.Pose2d;
+import com.acmerobotics.roadrunner.ftc.Actions;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.util.ElapsedTime;
+
+import org.firstinspires.ftc.robotcore.external.hardware.camera.BuiltinCameraDirection;
+import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
+import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
+import org.firstinspires.ftc.teamcode.MecanumDrive;
+import org.firstinspires.ftc.vision.VisionPortal;
+import org.firstinspires.ftc.vision.tfod.TfodProcessor;
+
+import java.util.List;
+
+@Autonomous(name = "Red Left", group = "Autonomous")
+
+public class MeepMeepToField_01 {
+
+        public void runAutonoumousMode() {
+            //Initialize Pose2d as desired
+            Pose2d initPose = new Pose2d(0, 0, 0); // Starting Pose
+            Pose2d moveBeyondTrussPose = new Pose2d(0,0,0);
+            Pose2d dropPurplePixelPose = new Pose2d(0, 0, 0);
+            Pose2d midwayPose1 = new Pose2d(0,0,0);
+            Pose2d midwayPose1a = new Pose2d(0,0,0);
+            Pose2d intakeStack = new Pose2d(0,0,0);
+            Pose2d midwayPose2 = new Pose2d(0,0,0);
+            Pose2d dropYellowPixelPose = new Pose2d(0, 0, 0);
+            Pose2d parkPose = new Pose2d(0,0, 0);
+            double waitSecondsBeforeDrop = 0;
+
+            MecanumDrive drive = new MecanumDrive(hardwareMap, initPose);
+
+            initPose = new Pose2d(0, 0, Math.toRadians(0)); //Starting pose
+            moveBeyondTrussPose = new Pose2d(15,0,0);
+
+                case RED_LEFT:
+                    drive = new MecanumDrive(hardwareMap, initPose);
+                        case LEFT:
+                            dropPurplePixelPose = new Pose2d(26, 8, Math.toRadians(0));
+                            dropYellowPixelPose = new Pose2d(37, -86, Math.toRadians(90));
+                            break;
+                        case MIDDLE:
+                            dropPurplePixelPose = new Pose2d(30, -3, Math.toRadians(0));
+                            dropYellowPixelPose = new Pose2d(29, -86, Math.toRadians(90));
+                            break;
+                        case RIGHT:
+                            dropPurplePixelPose = new Pose2d(27, -9, Math.toRadians(-45));
+                            dropYellowPixelPose = new Pose2d(21, -86, Math.toRadians(90));
+                            break;
+                    }
+
+                    midwayPose1 = new Pose2d(8, 8, Math.toRadians(0));
+                    midwayPose1a = new Pose2d(18, 18, Math.toRadians(90));
+                    intakeStack = new Pose2d(52, 19,Math.toRadians(90));
+                    midwayPose2 = new Pose2d(52, -62, Math.toRadians(90));
+                    waitSecondsBeforeDrop = 2; //TODO: Adjust time to wait for alliance partner to move from board
+                    parkPose = new Pose2d(50, -84, Math.toRadians(90));
+                    break;
+            }
+
+            //Move robot to dropPurplePixel based on identified Spike Mark Location
+            Actions.runBlocking(
+                    drive.actionBuilder(drive.pose)
+                            .strafeToLinearHeading(moveBeyondTrussPose.position, moveBeyondTrussPose.heading)
+                            .strafeToLinearHeading(dropPurplePixelPose.position, dropPurplePixelPose.heading)
+                            .build());
+
+            //TODO : Code to drop Purple Pixel on Spike Mark
+            safeWaitSeconds(1);
+
+            //Move robot to midwayPose1
+            Actions.runBlocking(
+                    drive.actionBuilder(drive.pose)
+                            .strafeToLinearHeading(midwayPose1.position, midwayPose1.heading)
+                            .build());
+
+            //For Blue Right and Red Left, intake pixel from stack
+            if (startPosition == AutonCases.START_POSITION.BLUE_RIGHT ||
+                    startPosition == AutonCases.START_POSITION.RED_LEFT) {
+                Actions.runBlocking(
+                        drive.actionBuilder(drive.pose)
+                                .strafeToLinearHeading(midwayPose1a.position, midwayPose1a.heading)
+                                .strafeToLinearHeading(intakeStack.position, intakeStack.heading)
+                                .build());
+
+                //TODO : Code to intake pixel from stack
+                safeWaitSeconds(1);
+
+                //Move robot to midwayPose2 and to dropYellowPixelPose
+                Actions.runBlocking(
+                        drive.actionBuilder(drive.pose)
+                                .strafeToLinearHeading(midwayPose2.position, midwayPose2.heading)
+                                .build());
+            }
+
+            safeWaitSeconds(waitSecondsBeforeDrop);
+
+            //Move robot to midwayPose2 and to dropYellowPixelPose
+            Actions.runBlocking(
+                    drive.actionBuilder(drive.pose)
+                            .setReversed(true)
+                            .splineToLinearHeading(dropYellowPixelPose,0)
+                            .build());
+
+
+            //TODO : Code to drop Pixel on Backdrop
+            safeWaitSeconds(1);
+
+            //Move robot to park in Backstage
+            Actions.runBlocking(
+                    drive.actionBuilder(drive.pose)
+                            .strafeToLinearHeading(parkPose.position, parkPose.heading)
+                            //.splineToLinearHeading(parkPose,0)
+                            .build());
+        }
+
+
+
+    }
